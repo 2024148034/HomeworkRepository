@@ -1,36 +1,40 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>메인 페이지</title>
-  <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <nav class="nav">
-    <a href="index.html">메인</a>
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  </nav>
+    <header>
+        <h1 class="slide-text">Welcome to Movie Search!</h1>
+    </header>
 
-  <header class="header-slide">
-    <h1>Welcome to Movie World</h1>
-  </header>
+    <nav class="nav-container">
+        <a href="login.html">Login</a>
+        <a href="signup.html">Sign Up</a>
+    </nav>
 
-  <main class="main-content">
-    <section class="movie-grid">
-      <div class="movie-item">
-        <img src="ironman3.jpg" alt="Movie 1">
-        <div class="movie-title">Iron Man 3</div>
-      </div>
-      <div class="movie-item">
-        <img src="doctorstrange.jpg" alt="Movie 2">
-        <div class="movie-title">Doctor Strange</div>
-      </div>
-      <div class="movie-item">
-        <img src="insideout.jpg" alt="Movie 3">
-        <div class="movie-title">Inside Out</div>
-      </div>
-    </section>
-  </main>
+    <main class="main-container">
+        <section class="movie-item">
+            <div class="movie-image">
+                <img src="ironman3.jpg" alt="Iron Man 3 img">
+                <div class="movie-title">Iron Man 3</div>
+            </div>
+        </section>
+        <section class="movie-item">
+            <div class="movie-image">
+                <img src="doctorstrange.jpg" alt="Doctor Strange img">
+                <div class="movie-title">Doctor Strange</div>
+            </div>
+        </section>
+        <section class="movie-item">
+            <div class="movie-image">
+                <img src="insideout.jpg" alt="Inside Out img">
+                <div class="movie-title">Inside Out</div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
