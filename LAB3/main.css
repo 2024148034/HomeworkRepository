@@ -154,22 +154,36 @@ form input[type="submit"]:hover {
 
 /* 미디어 쿼리 */
 @media (max-width: 480px) {
-    .nav-container, .main-container {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav-container {
         flex-direction: column;
         align-items: center;
     }
 }
 
 @media (min-width: 481px) and (max-width: 800px) {
-    .nav-container, .main-container {
+    .main-container {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
     }
+    .nav-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 @media (min-width: 801px) {
-    .nav-container, .main-container {
+    .main-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .nav-container {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
