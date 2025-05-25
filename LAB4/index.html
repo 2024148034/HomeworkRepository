@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Movie Explorer</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <!-- ───────── 헤더 / 네비게이션 ───────── -->
+  <header class="nav">
+    <h1>Movie Explorer</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign&nbsp;Up</a>
+    </nav>
+  </header>
+
+  <!-- ───────── 중앙 1020 px 박스 ───────── -->
+  <main class="container">
+    <!-- 검색 + 정렬 -->
+    <section class="controls">
+      <input id="searchInput" type="text" placeholder="키워드 검색…" />
+      <select id="sortSelect">
+        <option value="titleAsc">제목&nbsp;A→Z</option>
+        <option value="titleDesc">제목&nbsp;Z→A</option>
+        <option value="rateDesc">평점&nbsp;높은순</option>
+        <option value="rateAsc">평점&nbsp;낮은순</option>
+      </select>
+    </section>
+
+    <!-- 영화 카드 영역 -->
+    <section id="movieGrid" class="grid"></section>
+    <div id="loader" class="loader hidden"></div>
+  </main>
+
+  <script>
+  /* ───────── 상수 / 전역 ───────── */
+  const MOVIES_URL = 'product.json';
+  const BATCH_SIZE = 6;
+  let   moviesRaw  = [];
+  let   moviesView = [];
+  let   rendered   = 0;
+
+  /* ───────── 초기 로딩 ───────── */
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadMovies();
+    applyFilterAndSort();
+    renderNextBatch();
+    window.addEventListener('scroll', handleScroll);
+    document.getElementById('searchInput').addEventListener('input', debounce(applyFilterAndSort, 300));
+    document.getElementById('sortSelect').addEventListener('change', applyFilterAndSort);
+  });
+
+  async function loadMovies() {
+    try {
+      const res = await fetch(MOVIES_URL);
+      moviesRaw = (await res.json()).movies;
+    } catch (err) {
+      alert('영화 데이터를 불러오지 못했습니다. (로컬 서버로 실행해야 합니다)');
+      console.error(err);
+    }
+  }
+
+  /* ───────── 필터 + 정렬 ───────── */
+  function applyFilterAndSort() {
+    const kw  = document.getElementById('searchInput').value.toLowerCase();
+    const sel = document.getElementById('sortSelect').value;
+
+    moviesView = moviesRaw.filter(m =>
+      m.title.toLowerCase().includes(kw) ||
+      m.overview.toLowerCase().includes(kw)
+    );
+
+    moviesView.sort((a, b) => {
+      switch (sel) {
+        case 'titleAsc' : return  a.title.localeCompare(b.title);
+        case 'titleDesc': return  b.title.localeCompare(a.title);
+        case 'rateDesc' : return  b.vote_average - a.vote_average;
+        case 'rateAsc'  : return  a.vote_average - b.vote_average;
+      }
+    });
+
+    document.getElementById('movieGrid').innerHTML = '';
+    rendered = 0;
+    renderNextBatch();
+  }
+
+  /* ───────── 무한 스크롤 ───────── */
+  function handleScroll() {
+    if (rendered >= moviesView.length) return;
+    const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
+    if (scrollTop + clientHeight + 200 >= scrollHeight) renderNextBatch();
+  }
+
+  function renderNextBatch() {
+    const grid   = document.getElementById('movieGrid');
+    const loader = document.getElementById('loader');
+    loader.classList.remove('hidden');
+    moviesView.slice(rendered, rendered + BATCH_SIZE)
+              .forEach(m => grid.appendChild(createCard(m)));
+    rendered += BATCH_SIZE;
+    loader.classList.add('hidden');
+  }
+
+  /* ───────── 카드 + hover 줄거리 ───────── */
+  function createCard(m) {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${m.poster}" alt="${m.title}" />
+      <h3>${m.title}</h3>
+      <p class="rating">⭐ ${m.vote_average.toFixed(1)}</p>
+      <p class="release">개봉&nbsp;:&nbsp;${m.release_date}</p>
+      <p class="overview">${m.overview}</p>
+    `;
+    return card;
+  }
+
+  /* ───────── 유틸 ───────── */
+  function debounce(fn, delay = 300) {
+    let t;
+    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+  }
+  </script>
+</body>
+</html>
