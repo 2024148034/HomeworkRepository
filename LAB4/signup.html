@@ -6,16 +6,35 @@
   <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-  <main class="container">
-    <h2>Sign Up</h2>
-    <form>
-      <label>Name<br /><input type="text" required /></label><br /><br />
-      <label>Email<br /><input type="email" required /></label><br /><br />
-      <label>Password<br /><input type="password" required /></label><br /><br />
-      <button type="submit">Create Account</button>
-    </form>
-    <p><a href="login.html">이미 계정이 있나요? Login</a></p>
-    <p><a href="index.html">← 메인으로</a></p>
+  <header class="nav">
+    <h1>Movie Explorer</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card-form">
+      <h2>Create Account</h2>
+      <form>
+        <label>Name</label>
+        <input type="text" placeholder="홍길동" required />
+
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com" required />
+
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required />
+
+        <button type="submit" class="btn-primary">Sign&nbsp;Up</button>
+      </form>
+
+      <div class="form-links">
+        <a href="login.html">이미 계정이 있나요? Login</a><br/>
+        <a href="index.html">← 메인으로</a>
+      </div>
+    </section>
   </main>
 </body>
 </html>

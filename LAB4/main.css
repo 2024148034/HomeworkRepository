@@ -50,3 +50,40 @@ a    { text-decoration:none; color:#0366d6; }
   color: #777;
   font-size: .9rem;
 }
+
+/* ───────── 폼 카드 ───────── */
+.card-form {
+  background:#fff; border-radius:10px;
+  max-width:420px; margin:60px auto; padding:40px 45px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.card-form h2 { text-align:center; margin-bottom:25px; }
+
+.card-form label { display:block; font-weight:600; margin:18px 0 6px; }
+.card-form input {
+  width:100%; padding:12px 14px;
+  border:1px solid #ccc; border-radius:6px;
+  transition:border .2s;
+}
+.card-form input:focus { border-color:#0366d6; outline:none; }
+
+.btn-primary {
+  width:100%; padding:12px 0; margin-top:28px;
+  border:none; border-radius:6px;
+  background:#0366d6; color:#fff; font-size:1rem; font-weight:600;
+  cursor:pointer; transition:background .2s;
+}
+.btn-primary:hover { background:#024eaa; }
+
+/* 링크 정렬 */
+.form-links { text-align:center; margin-top:18px; font-size:.9rem; }
+.form-links a { color:#0366d6; margin:0 4px; }
+
+/* ───────── 중앙 1020px 박스 ───────── */
+.container { max-width:1020px; margin:40px auto; }
+
+/* 헤더 안쪽 전용 래퍼 */
+.inner {
+  max-width:1020px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:center;
+}
